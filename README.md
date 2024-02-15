@@ -1,31 +1,21 @@
 # PDF to Excel Converter
 
 ## Overview
-This versatile web application allows users to convert PDF files to either text or Excel format. It features a user-friendly interface powered by Streamlit and leverages the pdf2image, pytesseract, PyPDF2, img2table, and paddleocr libraries for robust PDF processing capabilities.
+This versatile web application allows users to convert PDF files to either text or Excel format, encapsulated within a Docker container. It features a user-friendly interface powered by Streamlit and leverages the pdf2image, pytesseract, PyPDF2, img2table, and paddleocr libraries for robust PDF processing capabilities.
 
 ## Prerequisites
-Before running the application, ensure you have the following dependencies installed:
-
-1. Python
-2. Required Python packages: Install them by running the following command in your terminal:
-   ```bash
-   pip install -r requirements.txt
-
-3. Poppler Installation (Windows/Linux):
-
-   - Download and install Poppler from https://poppler.freedesktop.org/
-   - Add the Poppler bin directory to your system's PATH environment variable. For example, on Windows, add "C:\Program Files\poppler-23.11.0\Library\bin" to the PATH.
-
-4. Tesseract Installation:
-
-   - For Windows: Download and install Tesseract from https://github.com/UB-Mannheim/tesseract/wiki
-   - Add "C:\Users\name\AppData\Local\Programs\Tesseract-OCR" to the PATH environment variable.
-   - For Linux: Follow the instructions at https://tesseract-ocr.github.io/tessdoc/Installation.html
+Before running the application, ensure you have Docker installed on your machine.
 
 ## Usage
-1. Execute the application using Streamlit with the command:
+1. Build the Docker image:
    ```bash
-   streamlit run app.py
+   docker build -t pdf-to-excel-converter .
+   
+2. Run the Docker container:
+   ```bash
+   docker run -p 8501:8501 pdf-to-excel-converter
+   
+Access the application at http://localhost:8501 in your web browser.
 
 
 ## Instructions
@@ -46,13 +36,5 @@ Before running the application, ensure you have the following dependencies insta
 - Downloadable results: Easily download the converted files.
 
 
-## Preview
-Here is a preview of the application:
-<details open>
-<summary>preview</summary>
-
-<div align="center">
-    <img src="./preview.JPG" >-
-</div>
-
-</details>
+## Support
+If you find this project helpful, consider supporting the developer by buying them a coffee!
