@@ -1,4 +1,4 @@
-# PDF to Excel Converter
+# PDF to Text/Excel Converter
 
 ## Overview
 This versatile web application allows users to convert PDF files to either text or Excel format, encapsulated within a Docker container. It features a user-friendly interface powered by Streamlit and leverages the pdf2image, pytesseract, PyPDF2, img2table, and paddleocr libraries for robust PDF processing capabilities.
