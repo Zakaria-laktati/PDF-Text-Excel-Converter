@@ -1,4 +1,4 @@
-# PDF to text/Excel Converter
+# PDF to Excel Converter
 
 ## Overview
 This versatile web application allows users to convert PDF files to either text or Excel format. It features a user-friendly interface powered by Streamlit and leverages the pdf2image, pytesseract, PyPDF2, img2table, and paddleocr libraries for robust PDF processing capabilities.
