@@ -37,4 +37,6 @@ Access the application at http://localhost:8501 in your web browser.
 
 
 ## Support
-If you find this project helpful, consider supporting the developer by buying them a coffee!
+If you find this project helpful, consider supporting the developer by [buying them a coffee](https://www.buymeacoffee.com/zakarialaktati)!
+
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Donate-yellow.svg)](https://www.buymeacoffee.com/zakarialaktati)
