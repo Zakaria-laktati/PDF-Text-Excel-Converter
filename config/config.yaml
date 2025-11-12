@@ -1,0 +1,27 @@
+# Configuration par défaut pour PDF Converter Pro
+ocr:
+  tesseract_path: ""  # Chemin vers tesseract (vide = détection automatique)
+  default_language: "eng"
+  supported_languages:
+    - "eng"
+    - "fra"
+  confidence_threshold: 50
+
+processing:
+  max_file_size_mb: 100
+  temp_dir: "./temp"
+  output_dir: "./output"
+  enable_caching: true
+  max_workers: 4
+
+ui:
+  page_title: "PDF Converter Pro"
+  max_upload_size_mb: 100
+  show_preview: true
+  theme: "light"
+
+logging:
+  level: "INFO"
+  format: "standard"  # standard ou json
+  file_path: "./logs/app.log"
+  console_output: true
