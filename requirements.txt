@@ -1,8 +1,6 @@
 pdf2image==1.17.0
-opencv-python-headless==4.8.1.78
 pytesseract==0.3.10
 PyPDF2==3.0.1
-img2table[paddle]==1.4.2
 streamlit==1.28.0
 Pillow>=10.1.0
 PyMuPDF>=1.24.0
@@ -15,3 +13,10 @@ black==23.10.1
 flake8==6.1.0
 mypy==1.7.0
 types-PyYAML==6.0.12.12
+
+# Install opencv-python-headless first to avoid conflicts
+opencv-python-headless==4.8.1.78
+# Then install img2table with paddle support
+paddleocr>=2.6.0
+paddlepaddle>=2.4.0
+img2table==1.4.2
