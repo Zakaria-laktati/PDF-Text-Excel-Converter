@@ -7,13 +7,6 @@ from pathlib import Path
 from typing import List, Dict, Any, Optional, Tuple
 
 from pdf2image import convert_from_path
-try:
-    from img2table.ocr import PaddleOCR
-    PADDLE_AVAILABLE = True
-except ImportError:
-    PADDLE_AVAILABLE = False
-    from img2table.ocr import TesseractOCR
-from img2table.document import PDF
 
 from src.core.interfaces import TableExtractor
 from src.core.pdf_processor import PDFProcessorImpl
@@ -73,18 +66,28 @@ class TableExtractorImpl(TableExtractor):
             
             logger.info(f"Extracting tables from {len(pages_to_process)} pages in {language}")
             
+            # Lazy import to avoid opencv conflict at module load time
+            try:
+                from img2table.ocr import PaddleOCR
+                from img2table.document import PDF
+                paddle_available = True
+                logger.info("PaddleOCR available, using it for table extraction")
+            except ImportError as e:
+                from img2table.ocr import TesseractOCR
+                from img2table.document import PDF
+                paddle_available = False
+                logger.info(f"PaddleOCR not available ({e}), using TesseractOCR instead")
+            
             # Convert language code
             ocr_language = self._convert_language_code(language)
             
             # Initialize OCR based on availability
-            if PADDLE_AVAILABLE:
-                logger.info("Using PaddleOCR for table extraction")
+            if paddle_available:
                 ocr = PaddleOCR(
                     lang=ocr_language, 
                     kw={"use_dilation": True, "use_angle_cls": True}
                 )
             else:
-                logger.info("Using TesseractOCR for table extraction")
                 ocr = TesseractOCR(lang=ocr_language)
             
             # Initialize PDF document for table extraction
@@ -116,7 +119,7 @@ class TableExtractorImpl(TableExtractor):
             # Save tables to Excel
             doc.to_xlsx(
                 excel_file_path,
-                ocr=paddle_ocr,
+                ocr=ocr,
                 implicit_rows=True,
                 borderless_tables=True,
                 min_confidence=self.confidence_threshold
