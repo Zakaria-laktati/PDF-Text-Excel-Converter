@@ -7,7 +7,12 @@ from pathlib import Path
 from typing import List, Dict, Any, Optional, Tuple
 
 from pdf2image import convert_from_path
-from img2table.ocr import PaddleOCR
+try:
+    from img2table.ocr import PaddleOCR
+    PADDLE_AVAILABLE = True
+except ImportError:
+    PADDLE_AVAILABLE = False
+    from img2table.ocr import TesseractOCR
 from img2table.document import PDF
 
 from src.core.interfaces import TableExtractor
@@ -71,11 +76,16 @@ class TableExtractorImpl(TableExtractor):
             # Convert language code
             ocr_language = self._convert_language_code(language)
             
-            # Initialize PaddleOCR
-            paddle_ocr = PaddleOCR(
-                lang=ocr_language, 
-                kw={"use_dilation": True, "use_angle_cls": True}
-            )
+            # Initialize OCR based on availability
+            if PADDLE_AVAILABLE:
+                logger.info("Using PaddleOCR for table extraction")
+                ocr = PaddleOCR(
+                    lang=ocr_language, 
+                    kw={"use_dilation": True, "use_angle_cls": True}
+                )
+            else:
+                logger.info("Using TesseractOCR for table extraction")
+                ocr = TesseractOCR(lang=ocr_language)
             
             # Initialize PDF document for table extraction
             # Convert 1-indexed pages to 0-indexed for img2table
@@ -91,7 +101,7 @@ class TableExtractorImpl(TableExtractor):
             # Extract tables
             logger.debug("Starting table extraction...")
             extracted_tables = doc.extract_tables(
-                ocr=paddle_ocr,
+                ocr=ocr,
                 implicit_rows=True,
                 borderless_tables=True,
                 min_confidence=self.confidence_threshold

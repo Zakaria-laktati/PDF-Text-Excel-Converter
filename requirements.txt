@@ -14,9 +14,7 @@ flake8==6.1.0
 mypy==1.7.0
 types-PyYAML==6.0.12.12
 
-# Install opencv-python-headless first to avoid conflicts
+# OpenCV headless version for cloud environments
 opencv-python-headless==4.8.1.78
-# Then install img2table with paddle support
-paddleocr>=2.6.0
-paddlepaddle>=2.4.0
+# Table extraction without paddle (lighter alternative)
 img2table==1.4.2
